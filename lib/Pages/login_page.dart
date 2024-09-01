@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:satelite_chatting_app/components/my_button.dart';
 import 'package:satelite_chatting_app/components/my_text_field.dart';
 import 'package:satelite_chatting_app/services/auth/auth_service.dart';
+import 'package:satelite_chatting_app/services/notifications/notifications.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function() onTap;
@@ -15,14 +17,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final noti = Notifications();
+
    
    void signIn ()async {
       final authService = Provider.of<AuthService>(context,listen: false);
+      await noti.initNotifications();
       try{
-        await authService.signInWithEmailandPassword(
+        UserCredential userCredential= await authService.signInWithEmailandPassword(
           emailController.text,
           passwordController.text,
+          noti.token
           );
+          
       }
       catch(e){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()),),);

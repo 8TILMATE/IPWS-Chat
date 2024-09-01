@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:satelite_chatting_app/components/my_button.dart';
 import 'package:satelite_chatting_app/components/my_text_field.dart';
 import 'package:satelite_chatting_app/services/auth/auth_service.dart';
+import 'package:satelite_chatting_app/services/notifications/notifications.dart';
 class RegisterPage extends StatefulWidget {
   final void Function() onTap;
   const RegisterPage({super.key,required this.onTap});
-
+  
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -14,7 +15,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final noti = Notifications();
   
   void signUp()async {
     if(passwordController.text!=confirmPasswordController.text){
@@ -23,8 +26,9 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     final authService = Provider.of<AuthService>(context,listen:false);
+    await noti.initNotifications();
     try{
-      await  authService.signUpWithEmailandPassword(emailController.text, passwordController.text);
+      await  authService.signUpWithEmailandPassword(emailController.text, passwordController.text, noti.token,usernameController.text);
     }
     catch(e){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -54,7 +58,9 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 25),
               MyTextField(controller: emailController, hintText: "Email", obscureText: false),
               const SizedBox(height: 10),
-             MyTextField(controller: passwordController, hintText: "Password", obscureText: true),
+              MyTextField(hintText: "Username",controller: usernameController,obscureText: false),
+              const SizedBox(height:10),
+              MyTextField(controller: passwordController, hintText: "Password", obscureText: true),
              const SizedBox(height: 10),
              MyTextField(
               controller: confirmPasswordController, 

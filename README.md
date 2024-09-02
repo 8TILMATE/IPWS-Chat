@@ -1,16 +1,6 @@
 # satelite_chatting_app
 
-A new Flutter project.
+IPWS-Chat is my first attempt at learning flutter and also my first middle-term project. 
+The purpose of this app is to let you interact with other users, with updates planned along the way as i embark on my journey of mastering dart.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

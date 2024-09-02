@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     final authService = Provider.of<AuthService>(context,listen:false);
-    await noti.initNotifications();
+    //await noti.initNotifications();
     try{
       await  authService.signUpWithEmailandPassword(emailController.text, passwordController.text, noti.token,usernameController.text);
     }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class AuthService extends ChangeNotifier{
 
-  late String token;
+   String? token="ABCDEFGH";
   
 
   //instance of auth
@@ -28,7 +28,7 @@ class AuthService extends ChangeNotifier{
         _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid':userCredential.user!.uid,
         'email':email,
-        'nToken': token,
+        'nToken': "webTest",
       }, SetOptions(merge: true));
       return userCredential;
     }
@@ -46,7 +46,7 @@ class AuthService extends ChangeNotifier{
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid':userCredential.user!.uid,
         'email':email,
-        'nToken': token,
+        'nToken': "a",
         'username': username
       });
 

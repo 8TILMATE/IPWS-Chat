@@ -17,13 +17,15 @@ class ChatPage extends StatefulWidget {
   final String receiverUID;
   final String senderUsername;
   final String chatRoomId;
+  final String receiverToken;
   final int constMaxSizeX=200;
   const ChatPage({
     super.key,
     required this.receiverEmail,
     required this.receiverUID,
     required this.senderUsername,
-    required this.chatRoomId
+    required this.chatRoomId,
+    required this.receiverToken,
     });
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -42,13 +44,13 @@ class _ChatPageState extends State<ChatPage> {
 
   void sendMessage() async{
     if(_messageController.text.isNotEmpty){
-      await _chatService.sendMessage(widget.receiverUID, _messageController.text,widget.senderUsername);
+      await _chatService.sendMessage(widget.receiverUID, _messageController.text,widget.senderUsername,widget.receiverToken);
       _messageController.clear();
     }
     else{
       if(image.path.isNotEmpty){
        
-        await _chatService.sendMessage(widget.receiverUID,  await _chatService.uploadImage(image,widget.chatRoomId), widget.senderUsername);
+        await _chatService.sendMessage(widget.receiverUID,  await _chatService.uploadImage(image,widget.chatRoomId), widget.senderUsername,widget.receiverToken);
       }
     }
   }

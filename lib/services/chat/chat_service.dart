@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:satelite_chatting_app/models/message.dart';
+import 'package:satelite_chatting_app/services/notifications/notifications.dart';
 
 class ChatService extends ChangeNotifier{
   // get instance of auth and frst
@@ -16,7 +17,7 @@ class ChatService extends ChangeNotifier{
 
 
   //SEND MESSAGE
-  Future<void> sendMessage(String receiverId,String message,String currentUsername) async {
+  Future<void> sendMessage(String receiverId,String message,String currentUsername,String receiverToken) async {
 
     final String currentUserId = _firebaseAuth.currentUser!.uid;
     //final String currentUsername = _firebaseAuth.currentUser!.displayName.toString();
@@ -36,6 +37,8 @@ class ChatService extends ChangeNotifier{
     ids.sort();
     String chatRoomId = ids.join("_");
     await _firestore.collection('chat_rooms').doc(chatRoomId).collection('messages').add(newMessage.toMap());
+    Notifications notifications = Notifications();
+    notifications.sendNotifications(message, currentUsername, receiverToken);
   }
 
   //GET MESSAGES

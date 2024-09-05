@@ -17,7 +17,7 @@ class AuthService extends ChangeNotifier{
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
 
-  Future<UserCredential> signInWithEmailandPassword(String email, String password,String token) async{
+  Future<UserCredential> signInWithEmailandPassword(String email, String password,String? token) async{
     try{
       //sign in
       UserCredential userCredential = 
@@ -28,7 +28,7 @@ class AuthService extends ChangeNotifier{
         _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid':userCredential.user!.uid,
         'email':email,
-        'nToken': "webTest",
+        'nToken': token,
       }, SetOptions(merge: true));
       return userCredential;
     }
@@ -53,7 +53,8 @@ class AuthService extends ChangeNotifier{
       return userCredential;
     }
     on FirebaseAuthException catch(e){
-      throw Exception(e.code);
+      throw Exception("Im in love with the coco");
+      
     }
   }
 

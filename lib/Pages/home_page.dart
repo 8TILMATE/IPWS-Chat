@@ -101,6 +101,7 @@ class _HomePageState extends State<HomePage>{
                   builder: (context) => ChatPage(
                     receiverEmail: data['email'],
                     receiverUID: data['uid'],
+                    receiverToken: data['nToken'],
                     senderUsername: username,
                     chatRoomId: chatRoomId,
                   ),
